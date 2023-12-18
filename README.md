@@ -107,6 +107,11 @@ If interested please feel free to email the maintainer Burak at: hello@buraste.c
 
 ## Authors
 
+- Ilya Shlyakhovoy:
+	- Github: [@bgrusnak](https://github.com/bgrusnak)
+    - Telegram: [@bgrusnak](https://t.me/bgrusnak)
+
+## Thanks to original idea
 - Burak Ibis:
 	- Github: [@buraste](https://github.com/buraste)
 	- Twitter: [@helloburaste](https://twitter.com/helloburaste)
