@@ -1,6 +1,7 @@
-FROM node:16
+FROM node:18-alpine
 # Installing libvips-dev for sharp Compatability
-RUN apt-get update && apt-get install libvips-dev -y
+RUN apk update && apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev vips-dev git > /dev/null 2>&1
+
 
 # where our Strapi app will live
 RUN mkdir -p /app
@@ -16,7 +17,9 @@ COPY ./.env /app/
 ENV PATH /app/node_modules/.bin:$PATH
 
 # Install dependencies in /app
-RUN yarn config set network-timeout 600000 -g && yarn install
+RUN yarn global add node-gyp
+RUN yarn config set network-timeout 600000 -g && yarn install --production
+
 
 # Copy the rest of our Strapi folder into /app
 COPY ./backend /app
@@ -27,7 +30,9 @@ EXPOSE 1337
 ENV NODE_ENV=${NODE_ENV}
 
 # Build Strapi admin
-RUN yarn build
+RUN yarn build 
+
+USER node
 
 # Run yarn dev, as we would via the command line 
 CMD ["yarn", "start"]

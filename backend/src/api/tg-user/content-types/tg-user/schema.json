@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tg_users",
+  "info": {
+    "singularName": "tg-user",
+    "pluralName": "tg-users",
+    "displayName": "TGUser"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "tgid": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "session": {
+      "type": "string"
+    },
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "language_code": {
+      "type": "string"
+    },
+    "agreed_with_rules": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

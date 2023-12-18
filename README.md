@@ -1,16 +1,6 @@
+# Dockerized Telegram miniapp environment
 
-<div align="center">
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/44535256/180598361-505e938a-dff5-4845-9fb7-6f0a7b8d0682.png" alt="Logo"/>
-</p>
-
-<p align="center">
-  <a href="https://twitter.com/helloburaste">
-    <img alt="Twitter: Hello Buraste" src="https://img.shields.io/twitter/follow/helloburaste?style=social" target="_blank" />
-  </a>
-</p>
-<p style="margin-top: 0;">Dockerize your Strapi v4 backend with Next.js and Nginx Support 🚀</p>
-	</div>
+Using PostgreSQL for the database, Strapi backend and admin part, Vue3/Vite/Ionic frontend, Telegraf for the bot and Redis as message broker.
 
 ## Table of Contents <!-- omit in toc -->
 
@@ -47,18 +37,24 @@ For more information on contributing please see [the contrib message below](#con
 
 #### Backend
 - Strapi v4
-- Node.js v16 for Docker Image
+- Node.js v18-alpine for Docker Image
 - Yarn package manager
 #### Frontend
-- Next.js v12.2
-- React.js v18.2
+- Vue3 v?
+- Ionic v?
 - Typescript v4.7
-- Node.js-alpine for Docker Image
+- Node.js v18-alpine for Docker Image
+- Yarn package manager
+#### Bot
+- Telegraf v? 
+- Nodejs:16.10.0-alpine for Docker Image
 - Yarn package manager
 #### Database
-- Postgres v12-alpine
+- Postgres v15-alpine
 - Linux/amd64 platform for platform error on Apple M1 chips
 - Named volumes
+#### Redis
+- Redis v7.2.3-alpine
 #### Reverse Proxy
 - Nginx Latest
 - Fastcgi support
@@ -81,7 +77,7 @@ You have to currently exist Docker and Docker Compose on your system:
 - Change credentials with secure and strong ones
 - If you are on development, be sure `ENVIRONMENT=development` on .env file
 - If you are on production or want to production build, change with `ENVIRONMENT=production`
-- Be sure `localhost:80` is accesible and not using from another process (Nginx runs on 80)
+- Be sure `localhost:NGINX_PORT` is accesible and not using from another process (Nginx runs on the port provided in the .env file as NGINX_PORT)
 - Pull necessary images:
 ```bash
 docker-compose pull
@@ -91,7 +87,8 @@ docker-compose pull
 ```bash
 docker-compose build && docker-compose up -d
 ```
-- Now you can access to Next.js frontend on `http://localhost` and Strapi backend (admin) on `http://localhost/strapi/admin`
+- Now you can access to Vue frontend on `http://localhost:NGINX_PORT` and Strapi backend (admin) on `http://localhost:NGINX_PORT/admin`
+- First you need to create an admin on page `http://localhost:NGINX_PORT/admin/auth/register-admin`
 - Register with your e-mail and password.
 - Go to `Content-Type Builder`, It has sample content type as `Article` and this content type has three field as `title` `body` and `cover`.
 - For creating new `Article`, go to `Content Manager`and click `Article`on left pane, click `Create new entry`and fill the blanks > click Publish!

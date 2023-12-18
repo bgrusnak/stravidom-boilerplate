@@ -4,20 +4,22 @@ services:
     image: nginx:latest
     restart: unless-stopped
     container_name: ${PROJECT_SLUG}_nginx
-    ports:
-      - 80:80
-      - 443:443
+    ports: 
+      - ${NGINX_PORT}:80
+    expose: 
+      - ${NGINX_PORT}
     networks:
       - internal
     volumes:
       - ./backend/public:/app/backend/public
       - ./frontend/public:/app/frontend/public
       - ./conf/nginx/:/etc/nginx:ro
+      - ./cert/:/etc/cert:ro
       - ./logs/nginx/:/var/log/nginx
       - /etc/localtime:/etc/localtime:ro
     depends_on:
-      - frontend
-      - backend
+     - frontend
+     - backend
 
   frontend:
     container_name: ${PROJECT_SLUG}_frontend
@@ -64,12 +66,35 @@ services:
       - internal
     depends_on:
       - postgres
+      - redis
+
+  bot: 
+    container_name: ${PROJECT_SLUG}_bot
+    env_file: .env
+    build:
+      context: .
+      dockerfile: ./docker/bot/${ENVIRONMENT}/Dockerfile
+      args:
+        - NODE_ENV=${ENVIRONMENT}
+    networks:
+      - internal
+    volumes:
+      - ./bot:/app
+      - /usr/app/node_modules/
+    depends_on:
+      - postgres
+      - redis
+    restart: unless-stopped
 
   postgres:
-    image: postgres:12.0-alpine
+    image: postgres:15.0-alpine
     container_name: ${PROJECT_SLUG}_postgres
     platform: linux/amd64
     restart: unless-stopped
+    ports: 
+      - ${DATABASE_EXTERNAL_PORT}:${DATABASE_PORT}
+    expose:
+      - ${DATABASE_EXTERNAL_PORT}
     env_file: .env
     environment:
       POSTGRES_USER: ${DATABASE_USERNAME}
@@ -79,8 +104,30 @@ services:
       - postgres-data:/var/lib/postgresql/data/
     networks:
       - internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME} -d ${DATABASE_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  redis:
+    container_name: ${PROJECT_SLUG}_redis
+    image: redis:7.2.3-alpine
+    restart: always
+    ports:
+      - ${REDIS_PORT}:${REDIS_PORT}
+    command: --port ${REDIS_PORT} --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
+    networks:
+      - internal
+    expose:
+      - ${REDIS_PORT}
+    volumes: 
+      - cache:/data
 
 volumes:
+  cache:
+    driver: local
   postgres-data:
 
 networks:

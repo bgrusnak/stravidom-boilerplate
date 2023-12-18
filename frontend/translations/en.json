@@ -1,0 +1,17 @@
+{
+	"pages": {
+		"home": {
+			"title": "Demp application",
+			"empty": "Nothing is here"
+		},
+		"agree": {
+			"title": "Users agreement",
+			"agree": "I agree"
+		}
+	},
+	"menu": {
+		"home": "Home",
+		"profile": "Profile",
+		"author": "Author"
+	}
+}

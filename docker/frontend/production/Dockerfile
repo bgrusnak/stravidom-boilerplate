@@ -1,6 +1,6 @@
 # Dockerfile
 # Use node alpine as it's a small node image
-FROM node:alpine
+FROM node:18-alpine
 ARG NODE_ENV
 
 ENV PORT 3005

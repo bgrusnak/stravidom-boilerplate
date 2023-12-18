@@ -1,0 +1,7 @@
+{
+  "name": "webapp-io",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}

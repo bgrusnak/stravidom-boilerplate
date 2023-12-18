@@ -1,0 +1,8 @@
+{
+  "preflight": {
+    "welcome": "Welcome to the demo app."
+  },
+  "bot":{
+    "app": "Open application"
+  }
+}
