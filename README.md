@@ -74,10 +74,14 @@ You have to currently exist Docker and Docker Compose on your system:
 #### Installation
 - Clone the repo
 - Copy `.env.example` file to `.env`
+- Make a certificates (you may need install mkcert first): 
+```
+cd cert && mkcert 127.0.0.1 && cd ..
+```
 - Change credentials with secure and strong ones
 - If you are on development, be sure `ENVIRONMENT=development` on .env file
 - If you are on production or want to production build, change with `ENVIRONMENT=production`
-- Be sure `localhost:HTTP_PORT` is accesible and not using from another process (Nginx runs on the port provided in the .env file as HTTP_PORT)
+- Be sure `127.0.0.1:HTTPS_PORT` is accesible and not using from another process (Nginx runs on the port provided in the .env file as HTTPS_PORT)
 - Pull necessary images:
 ```bash
 docker-compose pull
@@ -87,14 +91,14 @@ docker-compose pull
 ```bash
 docker-compose build && docker-compose up -d
 ```
-- Now you can access to Vue frontend on `http://localhost:HTTP_PORT` and Strapi backend (admin) on `http://localhost:HTTP_PORT/admin`
-- First you need to create an admin on page `http://localhost:HTTP_PORT/admin/auth/register-admin`
+- Now you can access to Vue frontend on `http://127.0.0.1:HTTPS_PORT` and Strapi backend (admin) on `http://127.0.0.1:HTTP_PORT/admin`
+- First you need to create an admin on page `http://127.0.0.1:HTTPS_PORT/admin/auth/register-admin`
 - Register with your e-mail and password.
 - Go to `Content-Type Builder`, It has sample content type as `Article` and this content type has three field as `title` `body` and `cover`.
 - For creating new `Article`, go to `Content Manager`and click `Article`on left pane, click `Create new entry`and fill the blanks > click Publish!
 - For testing API endpoint you need to give public access to the `Article` so
 	- Go to `Settings`>`User & Permissions Plugin`>`Roles`>`Public`>`Article`and select `find` `findOne`, If you need more, select what you want and save!
-	- Go to the `http://localhost/strapi/api/articles`
+	- Go to the `http://127.0.0.1/strapi/api/articles`
 
 ## Security for Endpoints
 Secure all your Strapi related endpoints in Nginx, make sure to use API tokens to connect to the backend and keep this information private. The Nginx config that on the repo is for development, not production ⛔️

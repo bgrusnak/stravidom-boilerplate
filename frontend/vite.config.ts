@@ -8,6 +8,10 @@ dotenv.config()
 
 // https://vitejs.dev/config/
 const config = {
+  envPrefix: 'TEST_',
+  define: {
+    "API_URL": `"${process.env.STRAPI_ADMIN_BACKEND_URL}"` // wrapping in "" since it's a string
+  },
   server: {
 		host: true,
 		port: process.env.FRONTEND_PORT

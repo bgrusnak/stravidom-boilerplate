@@ -5,8 +5,8 @@ export const isLocalhost = Boolean(
 		window.location.hostname === "[::1]" ||
 		// 127.0.0.1/8 is considered localhost for IPv4.
 		window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/),
-);  
+);
 export const api: AxiosInstance = axios.create({
-	baseURL: isLocalhost ? "https://127.0.0.1:8008/api/v1"  : "https://api.relay.botapps.cloud/api/v1",
+	baseURL: API_URL,
 	withCredentials: true,
 });
