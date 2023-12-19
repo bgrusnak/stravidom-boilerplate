@@ -101,7 +101,9 @@ docker-compose build && docker-compose up -d
 	- Go to the `http://127.0.0.1/strapi/api/articles`
 
 ## Security for Endpoints
-Secure all your Strapi related endpoints in Nginx, make sure to use API tokens to connect to the backend and keep this information private. The Nginx config that on the repo is for development, not production ⛔️
+The Nginx protects all endpoints with SSL certificate, you need to issue the correct certificates and 
+* add the certificate to the *cert* folder
+* fix the config/nginx/default.conf to use the new certificates and site name.
 
 ## Contributing
 
