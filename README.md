@@ -77,7 +77,7 @@ You have to currently exist Docker and Docker Compose on your system:
 - Change credentials with secure and strong ones
 - If you are on development, be sure `ENVIRONMENT=development` on .env file
 - If you are on production or want to production build, change with `ENVIRONMENT=production`
-- Be sure `localhost:NGINX_PORT` is accesible and not using from another process (Nginx runs on the port provided in the .env file as NGINX_PORT)
+- Be sure `localhost:HTTP_PORT` is accesible and not using from another process (Nginx runs on the port provided in the .env file as HTTP_PORT)
 - Pull necessary images:
 ```bash
 docker-compose pull
@@ -87,8 +87,8 @@ docker-compose pull
 ```bash
 docker-compose build && docker-compose up -d
 ```
-- Now you can access to Vue frontend on `http://localhost:NGINX_PORT` and Strapi backend (admin) on `http://localhost:NGINX_PORT/admin`
-- First you need to create an admin on page `http://localhost:NGINX_PORT/admin/auth/register-admin`
+- Now you can access to Vue frontend on `http://localhost:HTTP_PORT` and Strapi backend (admin) on `http://localhost:HTTP_PORT/admin`
+- First you need to create an admin on page `http://localhost:HTTP_PORT/admin/auth/register-admin`
 - Register with your e-mail and password.
 - Go to `Content-Type Builder`, It has sample content type as `Article` and this content type has three field as `title` `body` and `cover`.
 - For creating new `Article`, go to `Content Manager`and click `Article`on left pane, click `Create new entry`and fill the blanks > click Publish!
