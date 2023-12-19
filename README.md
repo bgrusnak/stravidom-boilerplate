@@ -107,7 +107,7 @@ Secure all your Strapi related endpoints in Nginx, make sure to use API tokens t
 
 We are always welcome for contributions to help shape this package.
 
-If interested please feel free to email the maintainer Burak at: hello@buraste.com
+If interested please feel free to email the maintainer Ilya Shlyakhovoy at: bulgarus@inbox.ru
 
 ## Authors
 
