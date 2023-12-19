@@ -1,9 +1,9 @@
 {
   "kind": "singleType",
-  "collectionName": "terms_and_conditions_list",
+  "collectionName": "terms_list",
   "info": {
-    "singularName": "terms-and-conditions",
-    "pluralName": "terms-and-conditions-list",
+    "singularName": "terms",
+    "pluralName": "terms-list",
     "displayName": "Terms&Conditions"
   },
   "options": {
@@ -15,14 +15,13 @@
     }
   },
   "attributes": {
-    "Content": {
+    "content": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "type": "blocks",
-      "required": true
+      "type": "richtext"
     }
   }
 }

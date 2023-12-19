@@ -677,12 +677,11 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
-export interface ApiTermsAndConditionsTermsAndConditions
-  extends Schema.SingleType {
-  collectionName: 'terms_and_conditions_list';
+export interface ApiTermsTerms extends Schema.SingleType {
+  collectionName: 'terms_list';
   info: {
-    singularName: 'terms-and-conditions';
-    pluralName: 'terms-and-conditions-list';
+    singularName: 'terms';
+    pluralName: 'terms-list';
     displayName: 'Terms&Conditions';
   };
   options: {
@@ -694,8 +693,7 @@ export interface ApiTermsAndConditionsTermsAndConditions
     };
   };
   attributes: {
-    Content: Attribute.Blocks &
-      Attribute.Required &
+    content: Attribute.RichText &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -705,21 +703,21 @@ export interface ApiTermsAndConditionsTermsAndConditions
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::terms-and-conditions.terms-and-conditions',
+      'api::terms.terms',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::terms-and-conditions.terms-and-conditions',
+      'api::terms.terms',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     localizations: Attribute.Relation<
-      'api::terms-and-conditions.terms-and-conditions',
+      'api::terms.terms',
       'oneToMany',
-      'api::terms-and-conditions.terms-and-conditions'
+      'api::terms.terms'
     >;
     locale: Attribute.String;
   };
@@ -776,7 +774,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
-      'api::terms-and-conditions.terms-and-conditions': ApiTermsAndConditionsTermsAndConditions;
+      'api::terms.terms': ApiTermsTerms;
       'api::tg-user.tg-user': ApiTgUserTgUser;
     }
   }

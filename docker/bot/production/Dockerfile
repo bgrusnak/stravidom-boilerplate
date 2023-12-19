@@ -8,5 +8,6 @@ COPY ./.env /app/
 RUN yarn config set network-timeout 600000 -g && yarn install
 COPY ./bot /app
 ENV NODE_ENV=${NODE_ENV}
+RUN yarn install
 RUN yarn build
 CMD ["yarn", "start"]

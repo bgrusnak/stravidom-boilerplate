@@ -14,5 +14,7 @@ RUN yarn config set network-timeout 600000 -g && yarn install
 # Copy the rest of our Next.js folder into /app
 COPY ./bot /app
 
+RUN yarn install
+
 # Run yarn dev, as we would via the command line 
 CMD [ "yarn", "dev" ]

@@ -17,7 +17,7 @@ return ({
     promoteEE: env.bool('FLAG_PROMOTE_EE', true),
   },
   port: 1337,
-  url: `http://localhost:${env('NGINX_PORT', '80')}/admin`,
+  url: env('ADMIN_PATH', '/admin'),
   emitErrors: true,
   
 });}
