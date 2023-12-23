@@ -1,14 +1,12 @@
 import { defineStore } from "pinia";
-import { ref } from "vue"; 
-import { api } from "@/api/http"; 
+import { ref } from "vue";  
 import { useWebApp, useWebAppHapticFeedback } from "vue-tg";
 
 import {
 	toastController,
 } from "@ionic/vue";
 
-export const useMainStore = defineStore("main", () => { 
-	const workCounter = ref(0)
+export const useMainStore = defineStore("main", () => {  
 	const isAgreed = ref(false);
 	const isAuthenticated = ref(false);
 	const initQuery = ref(useWebApp().initData);
@@ -30,5 +28,5 @@ export const useMainStore = defineStore("main", () => {
 		await toast.present();
 	})
 
-	return { isAgreed, isAuthenticated, language, userId, initData, initQuery, errorToast, workCounter };
+	return { isAgreed, isAuthenticated, language, userId, initData, initQuery, errorToast };
 });

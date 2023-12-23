@@ -4,6 +4,8 @@ import path from 'path'
 import { defineConfig } from 'vite'
 import dotenv from 'dotenv'
 import fs from 'fs'
+import isDocker from 'is-docker';
+
 dotenv.config()
 
 // https://vitejs.dev/config/
@@ -13,7 +15,7 @@ const config = {
     "API_URL": `"${process.env.STRAPI_ADMIN_BACKEND_URL}"` // wrapping in "" since it's a string
   },
   server: {
-		host: true,
+		host: '127.0.0.1',
 		port: process.env.FRONTEND_PORT
 	},
   plugins: [
@@ -30,12 +32,13 @@ const config = {
     environment: 'jsdom'
   }
 }
-/* 
-if (process.env.NODE_ENV == 'development') {
-	config.server.https = {
-		key: fs.readFileSync('cert/localhost-key.pem'),
-		cert: fs.readFileSync('cert/localhost.pem')
-	}
-}  */
+
+if (process.env.NODE_ENV == 'development' && !isDocker()) { 
+  console.log('Running free');
+  config.server.https = {
+    key: fs.readFileSync('../cert/127.0.0.1-key.pem'),
+    cert: fs.readFileSync('../cert/127.0.0.1.pem')
+  } 
+}
 
 export default defineConfig(config)

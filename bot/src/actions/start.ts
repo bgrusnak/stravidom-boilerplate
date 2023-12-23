@@ -1,4 +1,4 @@
-import { accessMessage } from '..//lib';
+import { accessMessage } from '../lib';
 import { Telegraf } from 'telegraf';
 const func = (bot: Telegraf) => {
   return bot.start(async (ctx: any) => {

@@ -1,5 +1,5 @@
 <style>
-.login-view {
+.splash-view {
 	background-image: url("/splash.jpg");
 	-webkit-background-size: cover;
 	-moz-background-size: center cover;
@@ -12,12 +12,11 @@
 }
 </style>
 <template>
-	<div class="login-view"></div>
+	<div class="splash-view"></div>
 </template>
 <script setup lang="ts">
-import { useApiStore, useMainStore } from "@/stores";
-import { IonProgressBar } from "@ionic/vue";
-import { ref, watch } from "vue";
+import { useApiStore, useMainStore } from "@/stores"; 
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 const main = useMainStore();

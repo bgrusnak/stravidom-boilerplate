@@ -3,11 +3,8 @@
         <ion-toolbar>
             <ion-grid>
                 <ion-row class="ion-align-items-center">
-                    <ion-col sie="10">
+                    <ion-col sie="auto">
                         <slot name="header"><ion-title>Demo miniapp</ion-title></slot>
-                    </ion-col>
-                    <ion-col size="2"> 
-                        <ion-menu-button></ion-menu-button>
                     </ion-col></ion-row></ion-grid>
         </ion-toolbar>
         <slot></slot>

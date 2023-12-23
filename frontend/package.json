@@ -13,7 +13,7 @@
     "test:unit": "vitest",
     "lint": "eslint"
   },
-  "dependencies": { 
+  "dependencies": {
     "@ionic/pwa-elements": "^3.2.2",
     "@ionic/vue": "^7.0.0",
     "@ionic/vue-router": "^7.0.0",
@@ -25,7 +25,8 @@
     "axios": "^1.4.0",
     "dotenv": "^16.3.1",
     "ionicons": "^7.0.0",
-    "lodash": "^4.17.21", 
+    "is-docker": "^3.0.0",
+    "lodash": "^4.17.21",
     "pinia": "^2.1.6",
     "vue": "^3.2.45",
     "vue-concurrency": "^4.0.1",

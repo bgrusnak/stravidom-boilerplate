@@ -21,7 +21,7 @@ import "@ionic/vue/css/display.css";
 import { defineCustomElements } from "@ionic/pwa-elements/loader";
 /* Theme variables */
 import "./theme/variables.css";
-import i18n from "./i18n";
+import i18n from "./utils/i18n";
 
 import App from "./App.vue";
 

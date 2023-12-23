@@ -6,7 +6,7 @@
             </template>
         </Header>
         <ion-content :fullscreen="true">
-            <EmptyContainer :name=" $t("pages.home.empty")" />
+            <EmptyContainer :name="$t('pages.home.empty')" />
         </ion-content>
     </ion-page>
 </template>

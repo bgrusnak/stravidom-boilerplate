@@ -2,14 +2,18 @@
   "extends": "@strapi/typescript-utils/tsconfigs/server",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "."
+    "rootDir": ".",
+    "jsx": "react",
   },
   "include": [
     "./",
     "./**/*.ts",
     "./**/*.js",
-    "src/**/*.json"
-  ],
+    // "./**/**/*.ts",
+    // "./**/**/*.js",
+    // "./src/plugins/**/*.ts",
+    // "./src/plugins/**/*.js",
+    "src/**/*.json"  ],
   "exclude": [
     "node_modules/",
     "build/",
@@ -18,6 +22,6 @@
     ".tmp/",
     "src/admin/",
     "**/*.test.*",
-    "src/plugins/**"
+    // "src/plugins/**"
   ]
 }

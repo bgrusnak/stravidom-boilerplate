@@ -4,7 +4,8 @@
   "info": {
     "singularName": "terms",
     "pluralName": "terms-list",
-    "displayName": "Terms&Conditions"
+    "displayName": "Terms&Conditions",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -21,7 +22,7 @@
           "localized": true
         }
       },
-      "type": "richtext"
+      "type": "blocks"
     }
   }
 }

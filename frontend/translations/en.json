@@ -8,10 +8,5 @@
 			"title": "Users agreement",
 			"agree": "I agree"
 		}
-	},
-	"menu": {
-		"home": "Home",
-		"profile": "Profile",
-		"author": "Author"
-	}
+	} 
 }

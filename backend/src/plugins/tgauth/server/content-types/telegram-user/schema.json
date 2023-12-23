@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "telegram_users",
+  "info": {
+    "singularName": "telegram-user",
+    "pluralName": "telegram-users",
+    "displayName": "Telegram user"
+  },
+  "options": {
+    "draftAndPublish": false,
+    "comment": ""
+  },
+  "attributes": {
+    "user_id": {
+      "type": "integer"
+    },
+    "username": {
+      "type": "string"
+    },
+    "first_name": {
+      "type": "string"
+    },
+    "last_name": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string",
+      "maxLength": 7,
+      "default": "en"
+    },
+    "telegram_id": {
+      "type": "string",
+      "regex": "\\d+",
+      "unique": true,
+      "minLength": 6,
+      "required": true
+    },
+    "agreed_rules": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    }
+  }
+}

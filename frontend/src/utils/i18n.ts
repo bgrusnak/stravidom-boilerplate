@@ -1,7 +1,7 @@
 import { createI18n } from "vue-i18n";
 
-import enTranslation from "../translations/en.json";
-import ruTranslation from "../translations/ru.json";
+import enTranslation from "../../translations/en.json";
+import ruTranslation from "../../translations/ru.json";
 
 
 const i18n = createI18n({
