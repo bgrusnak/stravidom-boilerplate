@@ -1,6 +1,5 @@
 FROM node:18-alpine
-
-ENV PORT ${FRONTEND_PORT}
+ 
 # where our Next.js app will live
 RUN mkdir -p /app
 

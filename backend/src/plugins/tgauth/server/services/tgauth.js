@@ -78,6 +78,7 @@ module.exports = ({ strapi }) => ({
           role: foundRole.id,
           created_by: 1, //user admin id
           updated_by: 1,
+          provider: 'telegram'
         },
       });
 

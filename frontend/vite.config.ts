@@ -15,7 +15,7 @@ const config = {
     "API_URL": `"${process.env.STRAPI_ADMIN_BACKEND_URL}"` // wrapping in "" since it's a string
   },
   server: {
-		host: '127.0.0.1',
+		host: true,
 		port: process.env.FRONTEND_PORT
 	},
   plugins: [

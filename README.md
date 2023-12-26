@@ -16,6 +16,7 @@ Using PostgreSQL for the database, Strapi backend and admin part, Vue3/Vite/Ioni
 - [Installation and Usage](#installation-and-usage)
     - [Installation](#installation)
     - [Usage](#usage)
+    - [Telegram user ID](#telegram-user-id)
 - [Security for Endpoints](#security-for-endpoints)
 - [Contributing](#contributing)
 - [Authors](#authors)
@@ -86,10 +87,14 @@ cd cert && mkcert 127.0.0.1 && cd ..
 ```bash
 docker-compose pull
 ```
-#### Usage
-- Build and up your docker-compose file if everything is ok:
+- Build your docker-compose:
 ```bash
-docker-compose build && docker-compose up -d
+docker-compose build 
+```
+#### Usage
+- Up your docker-compose file if everything is ok:
+```bash
+ docker-compose up -d
 ```
 - Now you can access to Vue frontend on `http://127.0.0.1:HTTPS_PORT` and Strapi backend (admin) on `http://127.0.0.1:HTTP_PORT/admin`
 - First you need to create an admin on page `http://127.0.0.1:HTTPS_PORT/admin/auth/register-admin`
@@ -99,6 +104,12 @@ docker-compose build && docker-compose up -d
 - For testing API endpoint you need to give public access to the `Article` so
 	- Go to `Settings`>`User & Permissions Plugin`>`Roles`>`Public`>`Article`and select `find` `findOne`, If you need more, select what you want and save!
 	- Go to the `http://127.0.0.1/strapi/api/articles`
+- If you have the problem with "tgauth//agree" route, regenerate the router permissions.
+### Telegram user ID
+- Open your bot and run the application
+- Application will register the new record in the collection Telegram user.
+- Open your record, there you will see your telegram_id
+- add it to the .env file as one of the ADMINS
 
 ## Security for Endpoints
 The Nginx protects all endpoints with SSL certificate, you need to issue the correct certificates and 

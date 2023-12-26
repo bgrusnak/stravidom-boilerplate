@@ -33,10 +33,6 @@ services:
     restart: unless-stopped
     networks:
       - internal
-    ports: 
-      - ${FRONTEND_PORT}:${FRONTEND_PORT}
-    expose:
-      - ${FRONTEND_PORT}
     volumes:
       - ./frontend:/app
       - /app/node_modules
@@ -53,10 +49,6 @@ services:
       args:
         - NODE_ENV=${ENVIRONMENT}
     restart: unless-stopped
-    ports: 
-      - ${STRAPI_PORT}:${STRAPI_PORT}
-    expose: 
-      - ${STRAPI_PORT}
     env_file: .env
     environment:
       DATABASE_CLIENT: ${DATABASE_CLIENT}

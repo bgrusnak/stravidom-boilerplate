@@ -2,9 +2,7 @@
 # Use node alpine as it's a small node image
 FROM node:18-alpine
 ARG NODE_ENV
-
-ENV PORT ${FRONTEND_PORT}
-
+ 
 # Create the directory on the node image 
 # where our Next.js app will live
 RUN mkdir -p /app

@@ -15,12 +15,6 @@ export const accessMessage = (
         `https://127.0.0.1:${process.env.HTTPS_PORT}/`
       ),
     ]);
-    kb.push([
-      Markup.button.webApp(
-        'Local separated test',
-        `https://127.0.0.1:3005/`
-      ),
-    ]);
   }
   return [ctx.i18n.t('preflight.welcome'), Markup.inlineKeyboard(kb)];
 };
