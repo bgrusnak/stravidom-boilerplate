@@ -29,7 +29,7 @@ async function checkAuth() {
 	if (main.isAuthenticated) {
 		return router.push("/home");
 	} else {
-		setTimeout(checkAuth, 1000);
+		setTimeout(checkAuth, 10000);
 		api.auth();
 	}
 }

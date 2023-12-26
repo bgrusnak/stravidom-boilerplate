@@ -770,6 +770,50 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface PluginRoutePermissionRoutePermission
+  extends Schema.CollectionType {
+  collectionName: 'route_permissions';
+  info: {
+    singularName: 'route-permission';
+    pluralName: 'route-permissions';
+    displayName: 'route-permission';
+  };
+  options: {
+    draftAndPublish: false;
+    comment: '';
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    action: Attribute.String;
+    role: Attribute.Relation<
+      'plugin::route-permission.route-permission',
+      'oneToOne',
+      'plugin::users-permissions.role'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::route-permission.route-permission',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::route-permission.route-permission',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -788,6 +832,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'plugin::route-permission.route-permission': PluginRoutePermissionRoutePermission;
     }
   }
 }

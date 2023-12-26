@@ -9,19 +9,24 @@ export const useApiStore = defineStore("api", () => {
     const main = useMainStore();
 
     async function auth() {
-        const { data } = await api.get("/tgauth", {
-            params: { query: main.initQuery },
+        const { data } = await api.post("/api/tgauth", [main.initQuery], {
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
         });
         if (data.authenticated) {
             main.isAuthenticated = true;
+            if(data.user.agreed_rules) {
+                main.isAgreed = true;
+            }
             token.value = data.token;
             api.interceptors.request.use(
                 (config) => {
-                    let accessToken = token.value;
-                    if (accessToken) {
+                    if (token.value) {
                         config.headers = Object.assign(
                             {
-                                Authorization: `Bearer ${accessToken}`,
+                                Authorization: `Bearer ${token.value}`,
                             },
                             config.headers
                         );
@@ -40,7 +45,9 @@ export const useApiStore = defineStore("api", () => {
         return ret.data.data.attributes.content;
     });
 
-    const onAgree = ref(() => api.post("/tgauth/agree"));
+    const onAgree = ref(() => {
+        return api.post("/api/tgauth/agree");
+    });
 
     return {
         auth,

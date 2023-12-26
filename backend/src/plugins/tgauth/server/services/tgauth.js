@@ -2,10 +2,7 @@
 
 const crypto = require("crypto");
 
-const verifyInitData = (telegramInitData, botToken, secondsToExpire = 0) => {
-  const urlParams = new URLSearchParams(telegramInitData);
-  const query = urlParams.get("query");
-  const queryParams = new URLSearchParams(query);
+const verifyInitData = (queryParams, botToken, secondsToExpire = 0) => {
   const hash = queryParams.get("hash");
   queryParams.delete("hash");
   const data = {};
@@ -35,108 +32,73 @@ const verifyInitData = (telegramInitData, botToken, secondsToExpire = 0) => {
 };
 
 module.exports = ({ strapi }) => ({
-  async validate(urlSource) {
-    try {
-      const url = new URL(urlSource, "https://relative");
-      if (!url.search || url.search == "?")
-        throw new Error("No query provided");
-      const urlQuery = url.search.substring(1);
-      const validated = await verifyInitData(urlQuery, process.env.BOT_TOKEN);
-      if (!validated) throw new Error("Wrong telegram data");
-      const urlParams = new URLSearchParams(urlQuery);
-      const query = urlParams.get("query");
-      const queryParams = new URLSearchParams(query);
-      const userQuery = JSON.parse(queryParams.get("user"));
-      let user;
-      let tguser = await strapi.db
-        .query("plugin::tgauth.telegram-user")
-        .findOne({
-          where: { telegram_id: userQuery.id },
-        });
-      if (!tguser) {
-        // If the user doesn't exist, create a new user
-        const foundRole = await strapi
-          .query("plugin::users-permissions.role")
-          .findOne({ where: { type: "authenticated" } });
-        if (!foundRole) throw Error(`role 'authenticated' does not exist`);
-        user = await strapi.db.query("plugin::users-permissions.user").create({
-          data: {
-            username:
-              userQuery.username || userQuery.last_name
-                ? userQuery.first_name + " " + userQuery.last_name
-                : userQuery.first_name,
-            confirmed: true,
-            role: foundRole.id,
-            created_by: 1, //user admin id
-            updated_by: 1,
-          },
-        });
-
-        tguser = await strapi.db.query("plugin::tgauth.telegram-user").create({
-          data: {
-            user_id: user.id,
-            username: userQuery.username,
-            telegram_id: userQuery.id,
-            first_name: userQuery.first_name,
-            last_name: userQuery.last_name,
-            language: userQuery.language_code,
-          },
-        });
-      }
-
-      // Generate Strapi JWT token
-      const jwtToken = await strapi
-        .service("plugin::users-permissions.jwt")
-        .issue({ id: tguser.user_id });
-
-      // Return successful authentication and user information
-      return { token: jwtToken, user: tguser, authenticated: true };
-    } catch (e) {
-      // return e.toString();
-      throw e;
+  async agree(ctx) {
+    const tguser = await strapi.db
+      .query("plugin::tgauth.telegram-user")
+      .findOne({
+        where: { user_id: ctx.state.user.id },
+      });
+    if (!tguser) {
+      throw new Error(
+        `Telegram user is not registered for ${ctx.state.user.id}`
+      );
     }
-  },
-  /* 
-  async find(query) {
-    return await strapi.entityService.findMany(
+    await strapi.entityService.update(
       "plugin::tgauth.telegram-user",
-      query
-    );
-  },
-
-  async delete(id) {
-    return await strapi.entityService.delete(
-      "plugin::tgauth.telegram-user",
-      id
-    );
-  },
-
-  async create(data) {
-    return await strapi.entityService.create(
-      "plugin::tgauth.telegram-user",
-      data
-    );
-  },
-
-  async update(id, data) {
-    return await strapi.entityService.update(
-      "plugin::tgauth.telegram-user",
-      id,
-      data
-    );
-  },
-
-  async toggle(id) {
-    const result = await strapi.entityService.findOne(
-      "plugin::tgauth.telegram-user",
-      id
-    );
-    return await strapi.entityService.update(
-      "plugin::tgauth.telegram-user",
-      id,
+      tguser.id,
       {
-        data: { isDone: !result.isDone },
+        data: { agreed_rules: true },
       }
     );
-  }, */
+    return { agreed_rules: true };
+  },
+
+  async validate(body) {
+    const queryParams = new URLSearchParams(body[0]);
+    const validated = await verifyInitData(queryParams, process.env.BOT_TOKEN);
+    if (!validated) throw new Error("Wrong telegram data");
+    const userQuery = JSON.parse(queryParams.get("user"));
+    let user;
+    let tguser = await strapi.db.query("plugin::tgauth.telegram-user").findOne({
+      where: { telegram_id: userQuery.id },
+    });
+    if (!tguser) {
+      // If the user doesn't exist, create a new user
+      const foundRole = await strapi
+        .query("plugin::users-permissions.role")
+        .findOne({ where: { type: "authenticated" } });
+      if (!foundRole) throw Error(`role 'authenticated' does not exist`);
+      user = await strapi.db.query("plugin::users-permissions.user").create({
+        data: {
+          username:
+            userQuery.username || userQuery.last_name
+              ? userQuery.first_name + " " + userQuery.last_name
+              : userQuery.first_name,
+          confirmed: true,
+          role: foundRole.id,
+          created_by: 1, //user admin id
+          updated_by: 1,
+        },
+      });
+
+      tguser = await strapi.db.query("plugin::tgauth.telegram-user").create({
+        data: {
+          user_id: user.id,
+          username: userQuery.username,
+          telegram_id: userQuery.id,
+          first_name: userQuery.first_name,
+          last_name: userQuery.last_name,
+          language: userQuery.language_code,
+        },
+      });
+    }
+
+    // Generate Strapi JWT token
+    const jwtToken = await strapi
+      .service("plugin::users-permissions.jwt")
+      .issue({ id: tguser.user_id });
+
+    // Return successful authentication and user information
+    return { token: jwtToken, user: tguser, authenticated: true };
+  },
 });

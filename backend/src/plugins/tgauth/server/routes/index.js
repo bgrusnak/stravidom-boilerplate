@@ -1,57 +1,36 @@
-module.exports = [
-  {
-    method: "GET",
-    path: "/",
-    handler: "tgauth.validate",
-    config: {
-      policies: [],
-      auth: false,
-    },
+module.exports = {
+  "": {
+    type: "content-api",
+    routes: [
+      {
+        method: "POST",
+        path: "/",
+        handler: "tgauth.validate",
+        config: {
+          policies: [],
+          roles: ["Authenticated", "Public"],
+          auth: false,
+          description: "Validate the user using the data, provided by Telegram",
+          tag: {
+            plugin: "Tgauth",
+            name: "validate",
+          },
+        },
+      },
+      {
+        method: "POST",
+        path: "/agree",
+        handler: "tgauth.agree",
+        config: {
+          policies: [],
+          roles: ["Authenticated"],
+          description: "Agree with rules",
+          tag: {
+            plugin: "Tgauth",
+            name: "agree",
+          },
+        },
+      },
+    ],
   },
-/* 
-  {
-    method: "GET",
-    path: "/find",
-    handler: "tgauth.find",
-    config: {
-      policies: [],
-    },
-  },
-
-  {
-    method: "POST",
-    path: "/create",
-    handler: "tgauth.create",
-    config: {
-      policies: [],
-    },
-  },
-
-  {
-    method: "DELETE",
-    path: "/delete/:id",
-    handler: "tgauth.delete",
-    config: {
-      policies: [],
-    },
-  },
-
-  {
-    method: "PUT",
-    path: "/toggle/:id",
-    handler: "tgauth.toggle",
-    config: {
-      policies: [],
-    },
-  },
-
-  {
-    method: "PUT",
-    path: "/update/:id",
-    handler: "tgauth.update",
-    config: {
-      policies: [],
-    },
-  },
- */
-];
+};
