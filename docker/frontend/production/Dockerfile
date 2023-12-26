@@ -3,7 +3,7 @@
 FROM node:18-alpine
 ARG NODE_ENV
 
-ENV PORT 3005
+ENV PORT ${FRONTEND_PORT}
 
 # Create the directory on the node image 
 # where our Next.js app will live
@@ -30,7 +30,7 @@ ENV NODE_ENV=${NODE_ENV}
 RUN yarn build
 
 # Ensure port 3005 is accessible to our system
-EXPOSE 3005
+EXPOSE ${FRONTEND_PORT}
 
 # Run yarn dev, as we would via the command line 
 CMD [ "yarn", "start" ]

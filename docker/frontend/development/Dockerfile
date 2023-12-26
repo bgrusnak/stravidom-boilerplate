@@ -1,7 +1,6 @@
 FROM node:18-alpine
 
-ENV PORT 3005
-
+ENV PORT ${FRONTEND_PORT}
 # where our Next.js app will live
 RUN mkdir -p /app
 
@@ -20,7 +19,7 @@ RUN yarn config set network-timeout 600000 -g && yarn install
 COPY ./frontend /app
 
 # Ensure port 3005 is accessible to our system
-EXPOSE 3005
+EXPOSE ${FRONTEND_PORT}
 
 # Run yarn dev, as we would via the command line 
 CMD [ "yarn", "dev" ]

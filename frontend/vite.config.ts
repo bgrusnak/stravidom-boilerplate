@@ -32,7 +32,7 @@ const config = {
     environment: 'jsdom'
   }
 }
-
+// bypass for the testing without docker
 if (process.env.NODE_ENV == 'development' && !isDocker()) { 
   console.log('Running free');
   config.server.https = {
